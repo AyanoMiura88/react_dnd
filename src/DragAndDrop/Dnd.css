@@ -1,0 +1,49 @@
+.dnd{
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.dndArea{
+  position: relative;
+}
+.imageArea{
+  margin-right:50px;
+  width: 200px;
+  height: 400px;
+  border: 3px solid antiquewhite;
+  border-radius: 20px;
+  background-color: antiquewhite;
+  overflow: auto;
+}
+
+.dropImage{
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.view{
+  width: 500px;
+  height: 400px;
+  border: 3px solid antiquewhite;
+  border-radius: 20px;
+  background-color: antiquewhite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewImage{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.clearBtn{
+  background-color:rgb(247, 182, 96);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  position: absolute;
+  top: 410px;
+  left: 80px;
+}
