@@ -8,7 +8,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <div>test</div>
         <Routes>
           <Route path="/" exact component={LoginPage} />
           <Route path="/MainPage" exact component={DropArea} />

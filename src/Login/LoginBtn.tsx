@@ -1,35 +1,20 @@
 import React from "react";
+import Button2 from "@material-ui/core/Button";
 
 interface Props {
-  border: string;
-  color: string;
-  children?: React.ReactNode;
-  height: string;
-  radius: string
-  width: string;
+  onClick: () => void;
 }
 
-const Button: React.FC<Props> = ({
-    border,
-    color,
-    children,
-    height,
-    radius,
-    width
-  }) => {
+
+const PrimaryButton = (props: Props) => {
+  const { onClick } = props;
   return (
-    <button
-      style={{
-         backgroundColor: color,
-         border,
-         borderRadius: radius,
-         height,
-         width
-      }}
-    >
-    {children}
-    </button>
+    <div style={{margin:"10px"}}>
+      <Button2 onClick={onClick} variant="contained" color="primary" >
+        LOGIN
+      </Button2>
+    </div>
   );
-}
+};
 
-export default Button;
+export default PrimaryButton;
