@@ -14,7 +14,7 @@ const LoginPage = () => {
     }
   };
   return (
-    <div>
+    <div style={{ marginTop: 100 }}>
       <LoginText
         id="1"
         placeholder={"test"}
