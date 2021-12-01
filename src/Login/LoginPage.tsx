@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import PrimaryButton from "./LoginBtn";
 import LoginText from "./LoginText";
+import VpnkeyIcon from "@material-ui/icons/VpnKey";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -15,6 +17,7 @@ const LoginPage = () => {
   };
   return (
     <div style={{ marginTop: 100 }}>
+      {/* <VpnkeyIcon /> */}
       <LoginText
         id="1"
         placeholder={"test"}

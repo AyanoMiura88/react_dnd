@@ -1,9 +1,12 @@
 import React, { useState, useCallback } from "react";
+import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 import "./Dnd.css";
 
 const DropArea = () => {
   const [state, setState] = useState<string[]>([]);
   const [view, setView] = useState<string>("");
+  const history = useHistory();
 
   const handleDropOver = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
@@ -17,12 +20,12 @@ const DropArea = () => {
     (e: React.DragEvent<HTMLDivElement>) => {
       e.stopPropagation();
       e.preventDefault();
-      onChange(e);
+      handleOnChange(e);
     },
     [state]
   );
 
-  const onChange = useCallback(
+  const handleOnChange = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
       const file = e.dataTransfer.files;
       const fileList = [...state];
@@ -47,8 +50,13 @@ const DropArea = () => {
     setView("");
   }, []);
 
+  const handleOnClick = useCallback(() => {
+    history.push("/TablePage");
+  }, []);
+
   return (
     <div className="dnd">
+      <Button onClick={handleOnClick}>tableへ</Button>
       <div className="dndArea" onDragOver={handleDropOver} onDrop={handleDrop}>
         <div className="imageArea">
           DropArea
@@ -61,17 +69,20 @@ const DropArea = () => {
             );
           })}
         </div>
-        {state.length ? (
+        {state.length && (
+          <button className="clearBtn" onClick={handleClear}>
+            clear
+          </button>
+        )}
+        {/* {state.length ? (
           <button className="clearBtn" onClick={handleClear}>
             clear
           </button>
         ) : (
           <></>
-        )}
+        )} */}
       </div>
-      <div className="view">
-        {view ? <img className="viewImage" src={view} alt="image" /> : <></>}
-      </div>
+      <div className="view">{view && <img className="viewImage" src={view} alt="image" />}</div>
     </div>
   );
 };
