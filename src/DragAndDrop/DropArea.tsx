@@ -6,7 +6,7 @@ import "./Dnd.css";
 const DropArea = () => {
   const [state, setState] = useState<string[]>([]);
   const [view, setView] = useState<string>("");
-  const history = useHistory();
+  // const history = useHistory();
 
   const handleDropOver = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
@@ -50,13 +50,13 @@ const DropArea = () => {
     setView("");
   }, []);
 
-  const handleOnClick = useCallback(() => {
-    history.push("/TablePage");
-  }, []);
+  // const handleOnClick = useCallback(() => {
+  //   history.push("/TablePage");
+  // }, []);
 
   return (
     <div className="dnd">
-      <Button onClick={handleOnClick}>tableへ</Button>
+      {/* <Button onClick={handleOnClick}>tableへ</Button> */}
       <div className="dndArea" onDragOver={handleDropOver} onDrop={handleDrop}>
         <div className="imageArea">
           DropArea

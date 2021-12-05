@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import PrimaryButton from "./LoginBtn";
+import PrimaryButton from "../Button/PrimaryBtn";
 import LoginText from "./LoginText";
 import VpnkeyIcon from "@material-ui/icons/VpnKey";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
@@ -12,7 +12,7 @@ const LoginPage = () => {
 
   const handleOnClick = () => {
     if (username === "test" && password === "sample") {
-      history.push("/MainPage");
+      history.push("/TopPage");
     }
   };
   return (
@@ -34,7 +34,7 @@ const LoginPage = () => {
         margin="dense"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <PrimaryButton onClick={handleOnClick} />
+      <PrimaryButton onClick={handleOnClick}>LOGIN</PrimaryButton>
     </div>
   );
 };
