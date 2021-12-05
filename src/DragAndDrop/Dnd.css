@@ -17,9 +17,12 @@
   overflow: auto;
 }
 
+.imageArea img{
+  height: 80px;
+}
+
 .dropImage{
   max-width: 80%;
-  max-height: 80%;
 }
 
 .view{

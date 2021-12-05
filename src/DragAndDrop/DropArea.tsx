@@ -1,12 +1,9 @@
 import React, { useState, useCallback } from "react";
-import { useHistory } from "react-router-dom";
-import Button from "@material-ui/core/Button";
 import "./Dnd.css";
 
 const DropArea = () => {
   const [state, setState] = useState<string[]>([]);
   const [view, setView] = useState<string>("");
-  // const history = useHistory();
 
   const handleDropOver = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
@@ -50,13 +47,8 @@ const DropArea = () => {
     setView("");
   }, []);
 
-  // const handleOnClick = useCallback(() => {
-  //   history.push("/TablePage");
-  // }, []);
-
   return (
     <div className="dnd">
-      {/* <Button onClick={handleOnClick}>tableへ</Button> */}
       <div className="dndArea" onDragOver={handleDropOver} onDrop={handleDrop}>
         <div className="imageArea">
           DropArea
