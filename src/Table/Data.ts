@@ -1,4 +1,4 @@
-export const heading = ["id", "名前", "レベル"];
+export const header = ["id", "名前", "レベル"];
 
 export const data = [
   { id: 1, name: "Taro", level: Math.random() },
