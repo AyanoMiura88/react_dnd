@@ -73,7 +73,6 @@ const TablePage = () => {
         </tbody>
       </table>
       <div>
-        {/* <button onClick={() => setShow(true)}>modal</button> */}
         {oneData && <Modal show={show} setShow={setShow} data={oneData} />}
       </div>
     </div>

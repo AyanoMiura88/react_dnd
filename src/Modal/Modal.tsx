@@ -1,5 +1,4 @@
 import React from "react";
-import { Transition } from "react-transition-group";
 import "./Modal.css";
 import { DataInfo } from "../Table/Data";
 import PrimaryButton from "../Button/PrimaryBtn";
@@ -17,14 +16,12 @@ export const Modal = (props: ModalProp) => {
   if (show) {
     return (
       <div className="overlay" onClick={handleClick}>
-        <div className="modalContainer">
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <p className="modalHeader">■名前</p>
-            <p>{data.name}</p>
-            <p className="modalHeader">■レベル</p>
-            <p>{data.level}</p>
-            <PrimaryButton onClick={handleClick}>close</PrimaryButton>
-          </div>
+        <div className="modal" onClick={(e) => e.stopPropagation()}>
+          <p className="modalHeader">■名前</p>
+          <p>{data.name}</p>
+          <p className="modalHeader">■レベル</p>
+          <p>{data.level}</p>
+          <PrimaryButton onClick={handleClick}>close</PrimaryButton>
         </div>
       </div>
     );

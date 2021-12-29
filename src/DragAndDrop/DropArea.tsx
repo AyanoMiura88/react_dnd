@@ -61,18 +61,18 @@ const DropArea = () => {
             );
           })}
         </div>
-        {state.length && (
+        {/* {state.length && (
           <button className="clearBtn" onClick={handleClear}>
             clear
           </button>
-        )}
-        {/* {state.length ? (
+        )} */}
+        {state.length ? (
           <button className="clearBtn" onClick={handleClear}>
             clear
           </button>
         ) : (
           <></>
-        )} */}
+        )}
       </div>
       <div className="view">{view && <img className="viewImage" src={view} alt="イメージ" />}</div>
     </div>

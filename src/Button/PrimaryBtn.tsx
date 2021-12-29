@@ -7,20 +7,11 @@ interface Props {
   onClick: () => void;
 }
 
-// const color = makeStyles({
-//   main: {
-//     backgroundColor: "#e57373",
-//     color: "#fff",
-//   }
-// });
-
 const PrimaryButton = (props: Props) => {
   const { children, onClick } = props;
-  // const test = color();
   return (
     <div style={{ margin: "10px" }}>
       <Button onClick={onClick} variant="contained" color="primary">
-        {/* <Button onClick={onClick} variant="contained" className={test.main} > */}
         {children}
       </Button>
     </div>
