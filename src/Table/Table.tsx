@@ -1,25 +1,28 @@
 import React, { useState } from "react";
 import "./Table.css";
 import Button from "@material-ui/core/Button";
-import { data, header } from "./Data";
+import { data, DataInfo, header } from "./Data";
 
 const TablePage = () => {
-  const [name, setName] = useState("");
+  const [state, setState] = useState<DataInfo[]>([...data]);
+  const [name, setName] = useState<string>("");
+  const [level, setLevel] = useState<number>(0);
 
   const handleGetName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
-  const handleAddName = () => {
-// const newData = data.push()
-  }
+  const handleGetLevel = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setLevel(Number(e.target.value));
+  const handleAddData = () => {
+    const dataList = [...state];
+    dataList.push({ id: dataList.length + 1, name, level });
+    setState([...dataList]);
+  };
   return (
     <div className="tablePage">
       <div className="inputArea">
-        <input onChange={ handleGetName }/>
-        <Button onClick={ handleAddName } variant="contained" color="primary" size="small">
-          名前追加
-        </Button>
-        <input />
-        <Button variant="contained" color="primary" size="small">
-          レベル追加
+        <input placeholder="名前" onChange={handleGetName} />
+        <input placeholder="レベル" onChange={handleGetLevel} />
+        <Button onClick={handleAddData} variant="contained" color="primary" size="small">
+          追加
         </Button>
       </div>
       <table className="table">
@@ -33,7 +36,7 @@ const TablePage = () => {
           </tr>
         </thead>
         <tbody className="tableBody">
-          {data.map((v, i) => (
+          {state.map((v, i) => (
             <tr key={i}>
               <td>{v.id}</td>
               <td>{v.name}</td>

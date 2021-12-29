@@ -1,6 +1,12 @@
+export interface DataInfo {
+  id: number;
+  name: string;
+  level: number;
+}
+
 export const header = ["id", "名前", "レベル"];
 
-export const data = [
+export const data: DataInfo[] = [
   { id: 1, name: "Taro", level: Math.random() },
   { id: 2, name: "Jiro", level: Math.random() },
   { id: 3, name: "Saburo", level: Math.random() },

@@ -56,7 +56,7 @@ const DropArea = () => {
             return (
               // クリックした写真をセット
               <div key={i} onClick={() => setView(img)}>
-                <img className="dropImage" key={i} src={img} alt="image" />
+                <img className="dropImage" key={i} src={img} alt="イメージ" />
               </div>
             );
           })}
@@ -74,7 +74,7 @@ const DropArea = () => {
           <></>
         )} */}
       </div>
-      <div className="view">{view && <img className="viewImage" src={view} alt="image" />}</div>
+      <div className="view">{view && <img className="viewImage" src={view} alt="イメージ" />}</div>
     </div>
   );
 };
