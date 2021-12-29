@@ -13,6 +13,10 @@
     justify-content: center;
   }
 
+  /* .modalContainer{
+
+  } */
+
   .modal{
     z-index:2;
     width:50%;
@@ -20,6 +24,11 @@
     background:#fff;
     color: rgb(68, 31, 10);
     border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: animate 0.3s;
   }
 
   .modalHeader{
@@ -27,4 +36,13 @@
     border-bottom: dashed 2px #e57373;
     border-radius: 20%;
     font-weight: bold;
+  }
+
+  @keyframes animate {
+    from {
+      transform: translateY(20px) translate(-50%, -50%);
+    }
+    to {
+      transform: translateY(0) translate(-50%, -50%);
+    }
   }

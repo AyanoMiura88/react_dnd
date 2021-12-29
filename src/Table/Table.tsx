@@ -15,17 +15,32 @@ const TablePage = () => {
   const handleGetName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
   const handleGetLevel = (e: React.ChangeEvent<HTMLInputElement>) => setLevel(e.target.value);
 
+  /**
+   * stateの更新
+   * @returns
+   */
   const handleAddData = () => {
     if (!name || !level) {
+      alert("名前とレベルを入力してください");
       return;
     }
-    if (isNaN(Number(level))) {
-      alert("レベルには数字を入れてください");
+    if (!checkNum(level)) {
+      alert("レベルには半角数字を入れてください");
       return;
     }
     const dataList = [...state];
     dataList.push({ name, level: Number(level) });
     setState([...dataList]);
+  };
+
+  /**
+   * 数値か判定
+   * @param str
+   * @returns
+   */
+  const checkNum = (str: string) => {
+    const regexp = new RegExp(/^[-]?([1-9]\d*|0)(\.\d+)?$/);
+    return regexp.test(str);
   };
 
   return (
