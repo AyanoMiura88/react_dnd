@@ -1,29 +1,27 @@
-/* .tablePage{
-
-} */
-
 .table {
   background-color: rgb(250, 234, 250);
-  border-collapse:  collapse;
+  border-collapse: collapse;
   border: 2px solid black;
   margin: 30px auto;
   width: 90%;
 }
 
-th{
-    background-color: rgb(238, 153, 224);
-    color: "#ffffff";
+th {
+  background-color: rgb(238, 153, 224);
+  color: "#ffffff";
 }
 
-th,td{
-    border: solid 1px;
+th,
+td {
+  border: solid 1px;
 }
 
-.inputArea{
+.inputArea {
   margin-top: 50px;
 }
 
-.inputArea input{
-  margin-left: 50px;
-  margin-right: 10px;
+.inputArea input {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 7px 0;
 }

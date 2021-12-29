@@ -2,20 +2,32 @@ import React, { useState } from "react";
 import "./Table.css";
 import Button from "@material-ui/core/Button";
 import { data, DataInfo, header } from "./Data";
+import { Modal } from "../Modal/Modal";
 
 const TablePage = () => {
   const [state, setState] = useState<DataInfo[]>([...data]);
+  // const [state, setState] = useState<DataInfo[]>([]);
   const [name, setName] = useState<string>("");
-  const [level, setLevel] = useState<number>(0);
+  const [level, setLevel] = useState<string>("");
+  const [show, setShow] = useState<boolean>(false);
+  const [oneData, setOneData] = useState<DataInfo | null>(null);
 
   const handleGetName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
-  const handleGetLevel = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setLevel(Number(e.target.value));
+  const handleGetLevel = (e: React.ChangeEvent<HTMLInputElement>) => setLevel(e.target.value);
+
   const handleAddData = () => {
+    if (!name || !level) {
+      return;
+    }
+    if (isNaN(Number(level))) {
+      alert("レベルには数字を入れてください");
+      return;
+    }
     const dataList = [...state];
-    dataList.push({ id: dataList.length + 1, name, level });
+    dataList.push({ name, level: Number(level) });
     setState([...dataList]);
   };
+
   return (
     <div className="tablePage">
       <div className="inputArea">
@@ -37,14 +49,18 @@ const TablePage = () => {
         </thead>
         <tbody className="tableBody">
           {state.map((v, i) => (
-            <tr key={i}>
-              <td>{v.id}</td>
+            <tr key={i} onClick={() => [setShow(true), setOneData(v)]}>
+              <td>{i + 1}</td>
               <td>{v.name}</td>
               <td>{v.level}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      <div>
+        {/* <button onClick={() => setShow(true)}>modal</button> */}
+        {oneData && <Modal show={show} setShow={setShow} data={oneData} />}
+      </div>
     </div>
   );
 };
