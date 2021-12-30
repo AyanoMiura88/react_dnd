@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import { useRecoilState } from "recoil";
+import { TableAtomState } from "../Atom/Atom";
 import "./Table.css";
-import Button from "@material-ui/core/Button";
-import { data, DataInfo, header } from "./Data";
+import PrimaryButton from "../Button/PrimaryBtn";
+import { DataInfo, header } from "./Data";
 import { Modal } from "../Modal/Modal";
 
 const TablePage = () => {
-  const [state, setState] = useState<DataInfo[]>([...data]);
-  // const [state, setState] = useState<DataInfo[]>([]);
+  const [state, setState] = useRecoilState<DataInfo[]>(TableAtomState);
+  // const [state, setState] = useState<DataInfo[]>([...data]);
   const [name, setName] = useState<string>("");
   const [level, setLevel] = useState<string>("");
   const [show, setShow] = useState<boolean>(false);
@@ -19,6 +21,20 @@ const TablePage = () => {
    * stateの更新
    * @returns
    */
+  // const handleAddData = useCallback(() => {
+  //   if (!name || !level) {
+  //     alert("名前とレベルを入力してください");
+  //     return;
+  //   }
+  //   if (!checkNum(level)) {
+  //     alert("レベルには半角数字を入れてください");
+  //     return;
+  //   }
+  //   const dataList = [...state];
+  //   dataList.push({ name, level: Number(level) });
+  //   setState([...dataList]);
+  // }, [name, level]);
+
   const handleAddData = () => {
     if (!name || !level) {
       alert("名前とレベルを入力してください");
@@ -48,9 +64,7 @@ const TablePage = () => {
       <div className="inputArea">
         <input placeholder="名前" onChange={handleGetName} />
         <input placeholder="レベル" onChange={handleGetLevel} />
-        <Button onClick={handleAddData} variant="contained" color="primary" size="small">
-          追加
-        </Button>
+        <PrimaryButton onClick={handleAddData}>追加</PrimaryButton>
       </div>
       <table className="table">
         <thead className="tableHead">
@@ -72,9 +86,7 @@ const TablePage = () => {
           ))}
         </tbody>
       </table>
-      <div>
-        {oneData && <Modal show={show} setShow={setShow} data={oneData} />}
-      </div>
+      <div>{oneData && <Modal show={show} setShow={setShow} data={oneData} />}</div>
     </div>
   );
 };

@@ -28,10 +28,15 @@
   }
 
   .modalHeader{
-    display: inline;
+    display: block;
     border-bottom: dashed 2px #e57373;
     border-radius: 20%;
     font-weight: bold;
+  }
+
+  .modal input{
+    padding: 7px 0;
+    font-size: 15px;
   }
 
   @keyframes animate {

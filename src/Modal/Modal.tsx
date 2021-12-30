@@ -1,5 +1,7 @@
 import React from "react";
 import "./Modal.css";
+import { useRecoilState } from "recoil";
+import { TableAtomState } from "../Atom/Atom";
 import { DataInfo } from "../Table/Data";
 import PrimaryButton from "../Button/PrimaryBtn";
 
@@ -11,17 +13,21 @@ interface ModalProp {
 
 export const Modal = (props: ModalProp) => {
   const { show, setShow, data } = props;
-  const key = Object.keys(data);
+  const [state, setState] = useRecoilState<DataInfo[]>(TableAtomState);
   const handleClick = () => setShow(false);
+  // const handleGetLevel =()=>
   if (show) {
     return (
       <div className="overlay" onClick={handleClick}>
         <div className="modal" onClick={(e) => e.stopPropagation()}>
           <p className="modalHeader">■名前</p>
-          <p>{data.name}</p>
+          <input value={data.name}></input>
           <p className="modalHeader">■レベル</p>
-          <p>{data.level}</p>
+          <input value={data.level}></input>
+          <div style={{ marginTop:"30px"}}>
           <PrimaryButton onClick={handleClick}>close</PrimaryButton>
+          <PrimaryButton onClick={handleClick}>変更</PrimaryButton>
+          </div>
         </div>
       </div>
     );

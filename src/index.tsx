@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { MuiThemeProvider } from "@material-ui/core/styles";
+import { RecoilRoot } from "recoil";
 import { Color } from "./../src/Materialui/Color";
 
 ReactDOM.render(
   <MuiThemeProvider theme={Color}>
     <React.StrictMode>
-      <App />
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
     </React.StrictMode>
   </MuiThemeProvider>,
   document.getElementById("root")
