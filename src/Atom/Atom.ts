@@ -5,6 +5,11 @@ export interface DataInfo {
   level: number;
 }
 
+export const TableHeader = atom<string[]>({
+  key: "tableHeader",
+  default: ["", "名前", "レベル"],
+});
+
 // 仮data
 export const TableAtomState = atom<DataInfo[]>({
   key: "tableAtom",
