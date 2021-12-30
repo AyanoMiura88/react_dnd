@@ -35,8 +35,9 @@
   }
 
   .modal input{
-    padding: 7px 0;
+    padding: 7px 5px;
     font-size: 15px;
+    border: solid 1px;
   }
 
   @keyframes animate {

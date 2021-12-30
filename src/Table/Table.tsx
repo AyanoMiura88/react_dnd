@@ -33,7 +33,7 @@ const TablePage = () => {
   //   const dataList = [...state];
   //   dataList.push({ name, level: Number(level) });
   //   setState([...dataList]);
-  // }, [name, level]);
+  // }, [state, name, level]);
 
   const handleAddData = () => {
     if (!name || !level) {
