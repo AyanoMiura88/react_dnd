@@ -1,22 +1,20 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { TableAtomState, TableHeader } from "../Atom/Atom";
+import { DataInfo,TableAtomState, TableHeader } from "../Atom/Atom";
 import "./Table.css";
 import PrimaryButton from "../Button/PrimaryBtn";
-import { DataInfo } from "./Data";
 import { Modal } from "../Modal/Modal";
 import { CheckBox } from "./CheckBox";
+import { useCheckBox } from "../Hooks/useCheckBox";
 
 const TablePage = () => {
   const [state, setState] = useRecoilState<DataInfo[]>(TableAtomState);
   const header = useRecoilValue<string[]>(TableHeader);
-  // const [state, setState] = useState<DataInfo[]>([...data]);
+  const { checkedValues, handleChecked } = useCheckBox();
   const [name, setName] = useState<string>("");
   const [level, setLevel] = useState<string>("");
   const [show, setShow] = useState<boolean>(false);
   const [oneData, setOneData] = useState<DataInfo | null>(null);
-  const [checked, setChecked] = useState<boolean>(false);
-  const [checkedValues, setCheckedValues] = useState<boolean[]>([]);
 
   const handleGetName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
   const handleGetLevel = (e: React.ChangeEvent<HTMLInputElement>) => setLevel(e.target.value);
@@ -53,11 +51,6 @@ const TablePage = () => {
     setState([...dataList]);
   };
 
-  const handleCheckBoxClick = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
-    console.log("check");
-  }, []);
-
   /**
    * 数値か判定
    * @param str
@@ -89,13 +82,11 @@ const TablePage = () => {
           {state.map((v, i) => (
             <tr key={i} onClick={() => [setShow(true), setOneData(v)]}>
               <td>
-                {/* <input
-                  type="checkbox"
-                  checked={checked}
-                  onChange={handleCheckBoxClick}
-                  onClick={(e) => e.stopPropagation()}
-                /> */}
-                <CheckBox id={`${i}`} checked={checked} onChange={handleCheckBoxClick}/>
+                <CheckBox
+                  id={`${i}`}
+                  checked={checkedValues.includes(`${i}`)}
+                  onChange={handleChecked}
+                />
                 {i + 1}
               </td>
               <td>{v.name}</td>
