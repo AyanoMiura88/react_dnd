@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Modal.css";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { TableAtomState } from "../Atom/Atom";
-import { DataInfo } from "../Table/Data";
+import { useSetRecoilState } from "recoil";
+import { DataInfo, TableAtomState } from "../Atom/Atom";
 import PrimaryButton from "../Button/PrimaryBtn";
 
 interface ModalProp {
@@ -13,7 +12,7 @@ interface ModalProp {
 
 export const Modal = (props: ModalProp) => {
   const { show, setShow, data } = props;
-  const  setState = useSetRecoilState<DataInfo[]>(TableAtomState);
+  const setState = useSetRecoilState<DataInfo[]>(TableAtomState);
   const [name, setName] = useState<string>("");
   const [level, setLevel] = useState<string>("");
 
@@ -32,29 +31,18 @@ export const Modal = (props: ModalProp) => {
       return;
     }
     setShow(false);
-    // tableList.forEach((list,i) => {
-    //   if (list === data) {
-    //     tableList.splice(i, 1);
-    //   }
-    // });
-    // for (const table of tableList) {
-    //   if (table === data) {
-    //     table["name"] = name;
-    //     table["level"] = Number(level);
-    //   }
-    // }
     setState((prev) => {
-      const list = [...prev]
-      list.forEach((v,i) => {
+      const list = [...prev];
+      list.forEach((v, i) => {
         if (v === data) {
           const newObj = { name, level: Number(level) };
           list.splice(i, 0, newObj);
-          list.splice(i+1, 1);
+          list.splice(i + 1, 1);
           return;
         }
       });
-      return [...list]
-    })
+      return [...list];
+    });
   };
 
   /**

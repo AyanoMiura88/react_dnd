@@ -51,6 +51,28 @@ const TablePage = () => {
     setState([...dataList]);
   };
 
+  const handleDeleteData = () => {
+    // if (!name || !level) {
+    //   alert("名前とレベルを入力してください");
+    //   return;
+    // }
+    // if (!checkNum(level)) {
+    //   alert("レベルには半角数字を入れてください");
+    //   return;
+    // }
+    const dataList = [...state];
+    // dataList.push({ name, level: Number(level) });
+    for (const value of checkedValues) {
+      // const num =
+    }
+    dataList.forEach((list,i) => {
+      // if (list === data) {
+      //   dataList.splice(i, 1);
+      // }
+    });
+    setState([...dataList]);
+  };
+
   /**
    * 数値か判定
    * @param str
@@ -95,6 +117,7 @@ const TablePage = () => {
           ))}
         </tbody>
       </table>
+      <PrimaryButton onClick={handleDeleteData}>選択中のデータを削除</PrimaryButton>
       <div>{oneData && <Modal show={show} setShow={setShow} data={oneData} />}</div>
     </div>
   );
