@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./Modal.css";
 import { useSetRecoilState } from "recoil";
 import { DataInfo, TableAtomState } from "../Atom/Atom";
@@ -22,8 +22,14 @@ export const Modal = (props: ModalProp) => {
   }, [data]);
 
   const handleCloseClick = () => setShow(false);
-  const handleGetName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
-  const handleGetLevel = (e: React.ChangeEvent<HTMLInputElement>) => setLevel(e.target.value);
+  const handleGetName = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value),
+    []
+  );
+  const handleGetLevel = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setLevel(e.target.value),
+    []
+  );
 
   const handleChangeData = () => {
     if (!checkNum(level)) {
