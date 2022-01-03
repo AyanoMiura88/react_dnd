@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { DataInfo,TableAtomState, TableHeader } from "../Atom/Atom";
+import { DataInfo, TableAtomState, TableHeader } from "../Atom/Atom";
 import "./Table.css";
 import PrimaryButton from "../Button/PrimaryBtn";
 import { Modal } from "../Modal/Modal";
@@ -10,7 +10,7 @@ import { useCheckBox } from "../Hooks/useCheckBox";
 const TablePage = () => {
   const [state, setState] = useRecoilState<DataInfo[]>(TableAtomState);
   const header = useRecoilValue<string[]>(TableHeader);
-  const { checkedValues, handleChecked } = useCheckBox();
+  const { checkedValues, setCheckedValues, handleChecked } = useCheckBox();
   const [name, setName] = useState<string>("");
   const [level, setLevel] = useState<string>("");
   const [show, setShow] = useState<boolean>(false);
@@ -21,22 +21,7 @@ const TablePage = () => {
 
   /**
    * stateの更新
-   * @returns
    */
-  // const handleAddData = useCallback(() => {
-  //   if (!name || !level) {
-  //     alert("名前とレベルを入力してください");
-  //     return;
-  //   }
-  //   if (!checkNum(level)) {
-  //     alert("レベルには半角数字を入れてください");
-  //     return;
-  //   }
-  //   const dataList = [...state];
-  //   dataList.push({ name, level: Number(level) });
-  //   setState([...dataList]);
-  // }, [state, name, level]);
-
   const handleAddData = () => {
     if (!name || !level) {
       alert("名前とレベルを入力してください");
@@ -51,32 +36,20 @@ const TablePage = () => {
     setState([...dataList]);
   };
 
+  /**
+   * 選択中のデータ削除
+   */
   const handleDeleteData = () => {
-    // if (!name || !level) {
-    //   alert("名前とレベルを入力してください");
-    //   return;
-    // }
-    // if (!checkNum(level)) {
-    //   alert("レベルには半角数字を入れてください");
-    //   return;
-    // }
     const dataList = [...state];
-    // dataList.push({ name, level: Number(level) });
-    for (const value of checkedValues) {
-      // const num =
-    }
-    dataList.forEach((list,i) => {
-      // if (list === data) {
-      //   dataList.splice(i, 1);
-      // }
-    });
-    setState([...dataList]);
+    const checkNum = checkedValues.map((v) => Number(v));
+    const newList = dataList.filter((_, i) => !checkNum.some((num) => num === i));
+    setState([...newList]);
+    setCheckedValues([]);
   };
 
   /**
    * 数値か判定
    * @param str
-   * @returns
    */
   const checkNum = (str: string) => {
     const regexp = new RegExp(/^[-]?([1-9]\d*|0)(\.\d+)?$/);
@@ -103,7 +76,7 @@ const TablePage = () => {
         <tbody className="tableBody">
           {state.map((v, i) => (
             <tr key={i} onClick={() => [setShow(true), setOneData(v)]}>
-              <td>
+              <td  onClick={(e) => e.stopPropagation()}>
                 <CheckBox
                   id={`${i}`}
                   checked={checkedValues.includes(`${i}`)}
