@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch as Routes } from "react-router-dom";
 import LoginPage from "./Login/LoginPage";
 import TopPage from "./Top/TopPage";
 import DropArea from "./DragAndDrop/DropArea";
-import Table from "./Table/Table";
+import Table from "./Table/TablePage";
 
 function App() {
   return (
