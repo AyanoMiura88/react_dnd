@@ -6,7 +6,8 @@ import { CheckBox } from "./CheckBox";
 import { useCheckBox } from "../Hooks/useCheckBox";
 
 interface TableProps {
-  state: DataInfo[];
+  header: string[];
+  data: DataInfo[];
   checkedValues: string[];
   handleChecked: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,8 +15,9 @@ interface TableProps {
 }
 
 const Table = (props: TableProps) => {
-  const { state, checkedValues, handleChecked, setShow, setOneData } = props;
-  const header = useRecoilValue<string[]>(TableHeader);
+  const { header, data, checkedValues, handleChecked, setShow, setOneData } =
+    props;
+  // const header = useRecoilValue<string[]>(TableHeader);
   // const [state, setState] = useRecoilState<DataInfo[]>(TableAtomState);
   // const { checkedValues, setCheckedValues, handleChecked } = useCheckBox();
   // const [show, setShow] = useState<boolean>(false);
@@ -33,7 +35,7 @@ const Table = (props: TableProps) => {
         </tr>
       </thead>
       <tbody className="tableBody">
-        {state.map((v, i) => (
+        {data.map((v, i) => (
           <tr key={i} onClick={() => [setShow(true), setOneData(v)]}>
             <td onClick={(e) => e.stopPropagation()}>
               <CheckBox
@@ -41,7 +43,7 @@ const Table = (props: TableProps) => {
                 checked={checkedValues.includes(`${i}`)}
                 onChange={handleChecked}
               />
-              {i + 1}
+              {v.id}
             </td>
             <td>{v.name}</td>
             <td>{v.level}</td>

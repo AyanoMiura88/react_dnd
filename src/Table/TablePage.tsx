@@ -2,19 +2,20 @@ import React, { useState, useCallback } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { DataInfo, TableAtomState, TableHeader } from "../Atom/Atom";
 import "./Table.css";
-import PrimaryButton from "../Button/PrimaryBtn";
+import PrimaryButton from "../DefaultParts/Button/PrimaryBtn";
 import { Modal } from "../Modal/Modal";
-import { CheckBox } from "./CheckBox";
+// import { CheckBox } from "./CheckBox";
 import { useCheckBox } from "../Hooks/useCheckBox";
 import Table from "./Table";
 
 const TablePage = () => {
-  const [state, setState] = useRecoilState<DataInfo[]>(TableAtomState);
-  const header = useRecoilValue<string[]>(TableHeader);
+  const [allData, setAllData] = useRecoilState(TableAtomState);
+  const [state, setState] = useState([...allData]);
+  const header = useRecoilValue(TableHeader);
   const { checkedValues, setCheckedValues, handleChecked } = useCheckBox();
-  const [name, setName] = useState<string>("");
-  const [level, setLevel] = useState<string>("");
-  const [show, setShow] = useState<boolean>(false);
+  const [name, setName] = useState("");
+  const [level, setLevel] = useState("");
+  const [show, setShow] = useState(false);
   const [oneData, setOneData] = useState<DataInfo | null>(null);
 
   const handleGetName = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -34,21 +35,33 @@ const TablePage = () => {
       alert("レベルには半角数字を入れてください");
       return;
     }
-    const dataList = [...state];
-    dataList.push({ name, level: Number(level) });
-    setState([...dataList]);
+    const allList = [...allData];
+    allList.push({
+      id: allList[allList.length - 1].id + 1,
+      isShow: true,
+      name,
+      level: Number(level),
+    });
+    const newList = allList.filter((v) => v.isShow);
+
+    setAllData([...allList]);
+    setState([...newList]);
   };
 
   /**
    * 選択中のデータ削除
    */
   const handleDeleteData = () => {
-    const dataList = [...state];
+    const allList = [...allData];
     const checkNum = checkedValues.map((v) => Number(v));
-    const newList = dataList.filter(
-      (_, i) => !checkNum.some((num) => num === i)
-    );
+    for (const num of checkNum) {
+      const oneList = allList[num];
+      const changObj = { ...oneList, isShow: false };
+      allList[num] = changObj;
+    }
+    const newList = allList.filter((v) => v.isShow);
     setState([...newList]);
+    setAllData([...allList]);
     setCheckedValues([]);
   };
 
@@ -68,34 +81,14 @@ const TablePage = () => {
         <input placeholder="レベル" onChange={handleGetLevel} />
         <PrimaryButton onClick={handleAddData}>追加</PrimaryButton>
       </div>
-      {/* <Table /> */}
-      {/* <table className="table">
-        <thead className="tableHead">
-          <tr>
-            {header.map((v, i) => (
-              <th key={i} scope="col">
-                {v}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="tableBody">
-          {state.map((v, i) => (
-            <tr key={i} onClick={() => [setShow(true), setOneData(v)]}>
-              <td onClick={(e) => e.stopPropagation()}>
-                <CheckBox
-                  id={`${i}`}
-                  checked={checkedValues.includes(`${i}`)}
-                  onChange={handleChecked}
-                />
-                {i + 1}
-              </td>
-              <td>{v.name}</td>
-              <td>{v.level}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
+      <Table
+        header={header}
+        data={state}
+        checkedValues={checkedValues}
+        handleChecked={handleChecked}
+        setShow={setShow}
+        setOneData={setOneData}
+      />
       <PrimaryButton onClick={handleDeleteData}>
         選択中のデータを削除
       </PrimaryButton>

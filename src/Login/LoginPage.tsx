@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import PrimaryButton from "../Button/PrimaryBtn";
+import PrimaryButton from "../DefaultParts/Button/PrimaryBtn";
 import LoginText from "./LoginText";
 
 const LoginPage = () => {

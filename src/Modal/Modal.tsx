@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./Modal.css";
 import { useSetRecoilState } from "recoil";
 import { DataInfo, TableAtomState } from "../Atom/Atom";
-import PrimaryButton from "../Button/PrimaryBtn";
+import PrimaryButton from "../DefaultParts/Button/PrimaryBtn";
 
 interface ModalProp {
   show: boolean;
@@ -41,7 +41,12 @@ export const Modal = (props: ModalProp) => {
       const list = [...prev];
       list.forEach((v, i) => {
         if (v === data) {
-          const newObj = { name, level: Number(level) };
+          const newObj = {
+            id: v.id,
+            isShow: v.isShow,
+            name,
+            level: Number(level),
+          };
           list.splice(i, 0, newObj);
           list.splice(i + 1, 1);
           return;
@@ -70,7 +75,7 @@ export const Modal = (props: ModalProp) => {
           <p className="modalHeader">■レベル</p>
           <input value={level} onChange={handleGetLevel}></input>
           <div style={{ marginTop: "30px" }}>
-            <PrimaryButton onClick={handleCloseClick}>close</PrimaryButton>
+            <PrimaryButton onClick={handleCloseClick}>閉じる</PrimaryButton>
             <PrimaryButton onClick={handleChangeData}>変更</PrimaryButton>
           </div>
         </div>
