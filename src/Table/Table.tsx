@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { DataInfo, TableAtomState, TableHeader } from "../Atom/Atom";
 import "./Table.css";
@@ -17,11 +17,20 @@ interface TableProps {
 const Table = (props: TableProps) => {
   const { header, data, checkedValues, handleChecked, setShow, setOneData } =
     props;
-  // const header = useRecoilValue<string[]>(TableHeader);
-  // const [state, setState] = useRecoilState<DataInfo[]>(TableAtomState);
-  // const { checkedValues, setCheckedValues, handleChecked } = useCheckBox();
-  // const [show, setShow] = useState<boolean>(false);
-  // const [oneData, setOneData] = useState<DataInfo | null>(null);
+  const [isSelect, setIsSelect] = useState<boolean[]>([]);
+
+  // useEffect(() => {
+  //   setIsSelect(() => data.map(() => false));
+  // }, [data]);
+
+  const handleClick = (val: DataInfo, index: number) => {
+    const select = [...isSelect];
+    if (checkedValues.includes(`${index}`)) {
+    }
+    // setIsSelect(checkedValues.includes(`${index}`));
+    // setShow(true);
+    setOneData(val);
+  };
 
   return (
     <table className="table">
@@ -36,7 +45,11 @@ const Table = (props: TableProps) => {
       </thead>
       <tbody className="tableBody">
         {data.map((v, i) => (
-          <tr key={i} onClick={() => [setShow(true), setOneData(v)]}>
+          <tr
+            // className={isSelect ? "select" : undefined}
+            key={i}
+            onDoubleClick={() => handleClick(v, i)}
+          >
             <td onClick={(e) => e.stopPropagation()}>
               <CheckBox
                 id={`${i}`}

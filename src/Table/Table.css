@@ -16,6 +16,10 @@ td {
   border: solid 1px;
 }
 
+.select{
+  background-color: rgb(245, 249, 252);
+}
+
 .inputArea {
   margin-top: 50px;
 }
