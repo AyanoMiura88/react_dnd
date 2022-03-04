@@ -1,5 +1,5 @@
 .table {
-  background-color: rgb(250, 234, 242);
+  background-color: white;
   border-collapse: collapse;
   border: 2px solid black;
   margin: 30px auto;
@@ -7,7 +7,7 @@
 }
 
 th {
-  background-color: rgb(238, 153, 178);
+  background-color: rgb(153, 197, 238);
   color: "#ffffff";
 }
 
@@ -17,7 +17,7 @@ td {
 }
 
 .select{
-  background-color: rgb(245, 249, 252);
+  background-color: rgb(252, 179, 145);
 }
 
 .inputArea {

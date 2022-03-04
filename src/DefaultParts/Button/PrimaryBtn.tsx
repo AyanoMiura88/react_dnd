@@ -11,7 +11,7 @@ const PrimaryButton = (props: Props) => {
   const { children, onClick } = props;
   return (
     // <div style={{ margin: "10px" }}>
-    <Button onClick={onClick} variant="contained" color="primary" style={{ margin: "10px" }}>
+    <Button onClick={onClick} variant="contained" color="secondary" style={{ margin: "10px" }}>
       {children}
     </Button>
     // </div>

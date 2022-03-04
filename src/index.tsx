@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { RecoilRoot } from "recoil";
-import { Color } from "./../src/Materialui/Color";
+import { Color } from "./DefaultParts/Materialui/Color";
 
 ReactDOM.render(
   <MuiThemeProvider theme={Color}>

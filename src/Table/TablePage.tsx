@@ -3,20 +3,18 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { DataInfo, TableAtomState, TableHeader } from "../Atom/Atom";
 import "./Table.css";
 import PrimaryButton from "../DefaultParts/Button/PrimaryBtn";
-import { Modal } from "../Modal/Modal";
-// import { CheckBox } from "./CheckBox";
-import { useCheckBox } from "../Hooks/useCheckBox";
+import { Modal } from "../DefaultParts/Modal/Modal";
 import Table from "./Table";
 
 const TablePage = () => {
   const [allData, setAllData] = useRecoilState(TableAtomState);
   const [state, setState] = useState([...allData]);
   const header = useRecoilValue(TableHeader);
-  const { checkedValues, setCheckedValues, handleChecked } = useCheckBox();
   const [name, setName] = useState("");
   const [level, setLevel] = useState("");
   const [show, setShow] = useState(false);
   const [oneData, setOneData] = useState<DataInfo | null>(null);
+  const [checkList, setCheckList] = useState<number[]>([]);
 
   const handleGetName = (e: React.ChangeEvent<HTMLInputElement>) =>
     setName(e.target.value);
@@ -53,16 +51,15 @@ const TablePage = () => {
    */
   const handleDeleteData = () => {
     const allList = [...allData];
-    const checkNum = checkedValues.map((v) => Number(v));
-    for (const num of checkNum) {
-      const oneList = allList[num];
+    for (const num of checkList) {
+      const oneList = allList[num - 1];
       const changObj = { ...oneList, isShow: false };
-      allList[num] = changObj;
+      allList[num - 1] = changObj;
     }
     const newList = allList.filter((v) => v.isShow);
     setState([...newList]);
     setAllData([...allList]);
-    setCheckedValues([]);
+    setCheckList([]);
   };
 
   /**
@@ -84,8 +81,8 @@ const TablePage = () => {
       <Table
         header={header}
         data={state}
-        checkedValues={checkedValues}
-        handleChecked={handleChecked}
+        checkList={checkList}
+        setCheck={setCheckList}
         setShow={setShow}
         setOneData={setOneData}
       />
