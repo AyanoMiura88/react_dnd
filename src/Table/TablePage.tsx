@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { DataInfo, TableAtomState, TableHeader } from "../Atom/Atom";
 import "./Table.css";
 import PrimaryButton from "../DefaultParts/Button/PrimaryBtn";
-import { Modal } from "../DefaultParts/Modal/Modal";
+import { Modal } from "./Modal/Modal";
 import Table from "./Table";
 
 const TablePage = () => {
@@ -46,6 +46,18 @@ const TablePage = () => {
     setState([...newList]);
   };
 
+  const handleClick = (val: DataInfo) => {
+    const list = [...checkList];
+    if (list.some((num) => num === val.id)) {
+      setCheckList(() => list.filter((num) => num !== val.id));
+    } else {
+      list.push(val.id);
+      setCheckList([...list]);
+    }
+    // setShow(true);
+    // setOneData(val);
+  };
+
   /**
    * 選択中のデータ削除
    */
@@ -81,10 +93,10 @@ const TablePage = () => {
       <Table
         header={header}
         data={state}
-        checkList={checkList}
-        setCheck={setCheckList}
-        setShow={setShow}
-        setOneData={setOneData}
+        option={{
+          checkList,
+          handleClick,
+        }}
       />
       <PrimaryButton onClick={handleDeleteData}>
         選択中のデータを削除

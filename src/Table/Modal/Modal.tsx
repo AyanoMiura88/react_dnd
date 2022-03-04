@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./Modal.css";
 import { useSetRecoilState } from "recoil";
 import { DataInfo, TableAtomState } from "../../Atom/Atom";
-import PrimaryButton from "../Button/PrimaryBtn";
+import PrimaryButton from "../../DefaultParts/Button/PrimaryBtn";
 
 interface ModalProp {
   show: boolean;

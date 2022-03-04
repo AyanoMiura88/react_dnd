@@ -5,26 +5,17 @@ import "./Table.css";
 interface TableProps {
   header: string[];
   data: DataInfo[];
-  checkList: number[];
-  setCheck: React.Dispatch<React.SetStateAction<number[]>>;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  setOneData: React.Dispatch<React.SetStateAction<DataInfo | null>>;
+  // checkList: number[];
+  // handleClick: (val: DataInfo) => void;
+  option?: {
+    checkList?: number[];
+    handleClick?: (val: DataInfo) => void;
+  };
 }
 
 const Table = (props: TableProps) => {
-  const { header, data, checkList, setCheck, setShow, setOneData } = props;
-
-  const handleClick = (val: DataInfo) => {
-    const list = [...checkList];
-    if (list.some((num) => num === val.id)) {
-      setCheck(() => list.filter((num) => num !== val.id));
-    } else {
-      list.push(val.id);
-      setCheck([...list]);
-    }
-    // setShow(true);
-    // setOneData(val);
-  };
+  const { header, data, option } = props;
+  // const { header, data, checkList, handleClick,option } = props;
 
   return (
     <table className="table">
@@ -40,9 +31,11 @@ const Table = (props: TableProps) => {
       <tbody className="tableBody">
         {data.map((v, i) => (
           <tr
-            className={checkList.includes(v.id) ? "select" : undefined}
+            className={option?.checkList?.includes(v.id) ? "select" : undefined}
+            // className={option?.checkList?.includes(v.id) ? "select" : undefined}
             key={i}
-            onDoubleClick={() => handleClick(v)}
+            onDoubleClick={() =>option?.handleClick?.(v)}
+            // onDoubleClick={() => option?.handleClick(v)}
           >
             <td>{v.id}</td>
             <td>{v.name}</td>
