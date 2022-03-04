@@ -46,6 +46,10 @@ const TablePage = () => {
     setState([...newList]);
   };
 
+  /**
+   * セルをダブルクリック処理
+   * @param val 
+   */
   const handleClick = (val: DataInfo) => {
     const list = [...checkList];
     if (list.some((num) => num === val.id)) {

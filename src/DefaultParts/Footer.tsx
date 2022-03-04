@@ -6,7 +6,7 @@ const useStyles = makeStyles({
     color: "infinity",
     backgroundColor: "#f5f5f5",
     width: "100%",
-    position: "absolute",
+    // position: "absolute",
     bottom: 0,
   },
 });

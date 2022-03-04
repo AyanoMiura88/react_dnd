@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { DataInfo } from "../Atom/Atom";
+import PrimaryButton from "../DefaultParts/Button/PrimaryBtn";
 import "./Table.css";
 
 interface TableProps {
@@ -40,6 +41,7 @@ const Table = (props: TableProps) => {
             <td>{v.id}</td>
             <td>{v.name}</td>
             <td>{v.level}</td>
+            <td><PrimaryButton>更新</PrimaryButton></td>
           </tr>
         ))}
       </tbody>
