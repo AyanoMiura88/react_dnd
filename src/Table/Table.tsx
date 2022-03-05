@@ -4,19 +4,25 @@ import PrimaryButton from "../DefaultParts/Button/PrimaryBtn";
 import "./Table.css";
 
 interface TableProps {
-  header: string[];
+  initHeader: string[];
   data: DataInfo[];
-  // checkList: number[];
-  // handleClick: (val: DataInfo) => void;
   option?: {
+    isUpdateBtn?: boolean;
     checkList?: number[];
-    handleClick?: (val: DataInfo) => void;
+    doubleClick?: (val: DataInfo) => void;
+    handleUpdateClick?: (val: DataInfo) => void;
   };
 }
 
 const Table = (props: TableProps) => {
-  const { header, data, option } = props;
-  // const { header, data, checkList, handleClick,option } = props;
+  const { initHeader, data, option } = props;
+  const [header, setHeader] = useState([...initHeader]);
+
+  useEffect(() => {
+    const headList = [...initHeader];
+    option?.isUpdateBtn && headList.push("");
+    setHeader([...headList]);
+  }, [option?.isUpdateBtn]);
 
   return (
     <table className="table">
@@ -33,15 +39,19 @@ const Table = (props: TableProps) => {
         {data.map((v, i) => (
           <tr
             className={option?.checkList?.includes(v.id) ? "select" : undefined}
-            // className={option?.checkList?.includes(v.id) ? "select" : undefined}
             key={i}
-            onDoubleClick={() =>option?.handleClick?.(v)}
-            // onDoubleClick={() => option?.handleClick(v)}
+            onDoubleClick={() => option?.doubleClick?.(v)}
           >
             <td>{v.id}</td>
             <td>{v.name}</td>
             <td>{v.level}</td>
-            <td><PrimaryButton>更新</PrimaryButton></td>
+            {option?.isUpdateBtn && (
+              <td>
+                <PrimaryButton onClick={() => option?.handleUpdateClick?.(v)}>
+                  更新
+                </PrimaryButton>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

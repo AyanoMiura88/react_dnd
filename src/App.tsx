@@ -11,7 +11,7 @@ import { Footer } from "./DefaultParts/Footer";
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="App" style={{}}>
         <Header />
         <Routes>
           <Route path="/" exact component={LoginPage} />

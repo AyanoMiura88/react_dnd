@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { DataInfo, TableAtomState, TableHeader } from "../Atom/Atom";
 import "./Table.css";
@@ -8,7 +8,7 @@ import Table from "./Table";
 
 const TablePage = () => {
   const [allData, setAllData] = useRecoilState(TableAtomState);
-  const [state, setState] = useState([...allData]);
+  const [data, setData] = useState([...allData]);
   const header = useRecoilValue(TableHeader);
   const [name, setName] = useState("");
   const [level, setLevel] = useState("");
@@ -21,10 +21,16 @@ const TablePage = () => {
   const handleGetLevel = (e: React.ChangeEvent<HTMLInputElement>) =>
     setLevel(e.target.value);
 
+  useEffect(() => {
+    const allList = [...allData];
+    const newList = allList.filter((v) => v.isShow);
+    setData([...newList]);
+  }, [allData]);
+
   /**
    * stateの更新
    */
-  const handleAddData = () => {
+  const handleAddData = useCallback(() => {
     if (!name || !level) {
       alert("名前とレベルを入力してください");
       return;
@@ -43,29 +49,38 @@ const TablePage = () => {
     const newList = allList.filter((v) => v.isShow);
 
     setAllData([...allList]);
-    setState([...newList]);
+    setData([...newList]);
+  }, [name, level, allData]);
+
+  /**
+   * modalの表示
+   */
+  const handleUpdateClick = (val: DataInfo) => {
+    setShow(true);
+    setOneData(val);
   };
 
   /**
    * セルをダブルクリック処理
-   * @param val 
+   * @param val
    */
-  const handleClick = (val: DataInfo) => {
-    const list = [...checkList];
-    if (list.some((num) => num === val.id)) {
-      setCheckList(() => list.filter((num) => num !== val.id));
-    } else {
-      list.push(val.id);
-      setCheckList([...list]);
-    }
-    // setShow(true);
-    // setOneData(val);
-  };
+  const doubleClick = useCallback(
+    (val: DataInfo) => {
+      const list = [...checkList];
+      if (list.some((num) => num === val.id)) {
+        setCheckList(() => list.filter((num) => num !== val.id));
+      } else {
+        list.push(val.id);
+        setCheckList([...list]);
+      }
+    },
+    [checkList]
+  );
 
   /**
    * 選択中のデータ削除
    */
-  const handleDeleteData = () => {
+  const handleDeleteData = useCallback(() => {
     const allList = [...allData];
     for (const num of checkList) {
       const oneList = allList[num - 1];
@@ -73,10 +88,10 @@ const TablePage = () => {
       allList[num - 1] = changObj;
     }
     const newList = allList.filter((v) => v.isShow);
-    setState([...newList]);
+    setData([...newList]);
     setAllData([...allList]);
     setCheckList([]);
-  };
+  }, [checkList]);
 
   /**
    * 数値か判定
@@ -95,11 +110,13 @@ const TablePage = () => {
         <PrimaryButton onClick={handleAddData}>追加</PrimaryButton>
       </div>
       <Table
-        header={header}
-        data={state}
+        initHeader={header}
+        data={data}
         option={{
           checkList,
-          handleClick,
+          doubleClick,
+          isUpdateBtn: true,
+          handleUpdateClick,
         }}
       />
       <PrimaryButton onClick={handleDeleteData}>

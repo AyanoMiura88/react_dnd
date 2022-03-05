@@ -20,6 +20,7 @@ const LoginText = (props: Props) => {
         variant={variant}
         margin={margin}
         onChange={onChange}
+        color="secondary"
       />
     </div>
   );
