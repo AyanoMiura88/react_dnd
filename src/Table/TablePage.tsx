@@ -12,7 +12,10 @@ const TablePage = () => {
   const header = useRecoilValue(TableHeader);
   const [name, setName] = useState("");
   const [level, setLevel] = useState("");
-  const [show, setShow] = useState(false);
+  /** 更新ボタン押下時一つのデータを表示 */
+  const [showDate, setShowData] = useState(false);
+  /** 追加ボタン押下時 */
+  const [showAddModal, setShowAddModal] = useState(false);
   const [oneData, setOneData] = useState<DataInfo | null>(null);
   const [checkList, setCheckList] = useState<number[]>([]);
 
@@ -30,7 +33,7 @@ const TablePage = () => {
   /**
    * stateの更新
    */
-  const handleAddData = useCallback(() => {
+  const handleAddData = () => {
     if (!name || !level) {
       alert("名前とレベルを入力してください");
       return;
@@ -50,13 +53,17 @@ const TablePage = () => {
 
     setAllData([...allList]);
     setData([...newList]);
-  }, [name, level, allData]);
+  };
+
+  const handleAddDateClick = () => {
+    setShowAddModal(true);
+  };
 
   /**
    * modalの表示
    */
   const handleUpdateClick = (val: DataInfo) => {
-    setShow(true);
+    setShowData(true);
     setOneData(val);
   };
 
@@ -119,11 +126,28 @@ const TablePage = () => {
           handleUpdateClick,
         }}
       />
+      <PrimaryButton onClick={handleAddDateClick}>データを追加</PrimaryButton>
       <PrimaryButton onClick={handleDeleteData}>
         選択中のデータを削除
       </PrimaryButton>
       <div>
-        {oneData && <Modal show={show} setShow={setShow} data={oneData} />}
+        {// 更新ボタン押下時
+        oneData && (
+          <Modal
+            show={showDate}
+            setShow={setShowData}
+            option={{ data: oneData }}
+          />
+        )}
+        {// 追加ボタン押下時
+        showAddModal && (
+          <Modal
+            isNullData={true}
+            show={showAddModal}
+            setShow={setShowAddModal}
+            option={{ handleAddData }}
+          />
+        )}
       </div>
     </div>
   );
