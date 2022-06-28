@@ -19,10 +19,8 @@ const TablePage = () => {
   const [oneData, setOneData] = useState<DataInfo | null>(null);
   const [checkList, setCheckList] = useState<number[]>([]);
 
-  const handleGetName = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setName(e.target.value);
-  const handleGetLevel = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setLevel(e.target.value);
+  const handleGetName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
+  const handleGetLevel = (e: React.ChangeEvent<HTMLInputElement>) => setLevel(e.target.value);
 
   useEffect(() => {
     const allList = [...allData];
@@ -116,6 +114,7 @@ const TablePage = () => {
         <input placeholder="レベル" onChange={handleGetLevel} />
         <PrimaryButton onClick={handleAddData}>追加</PrimaryButton>
       </div>
+      <PrimaryButton onClick={handleDeleteData}>選択中のデータを削除</PrimaryButton>
       <Table
         initHeader={header}
         data={data}
@@ -126,28 +125,31 @@ const TablePage = () => {
           handleUpdateClick,
         }}
       />
-      <PrimaryButton onClick={handleAddDateClick}>データを追加</PrimaryButton>
-      <PrimaryButton onClick={handleDeleteData}>
-        選択中のデータを削除
-      </PrimaryButton>
+      {/* <PrimaryButton onClick={handleAddDateClick}>データを追加</PrimaryButton> */}
       <div>
-        {// 更新ボタン押下時
-        oneData && (
-          <Modal
-            show={showDate}
-            setShow={setShowData}
-            option={{ data: oneData }}
-          />
-        )}
-        {// 追加ボタン押下時
-        showAddModal && (
-          <Modal
-            isNullData={true}
-            show={showAddModal}
-            setShow={setShowAddModal}
-            option={{ handleAddData }}
-          />
-        )}
+        {
+          // 更新ボタン押下時
+          oneData && (
+            <Modal
+              isAddData={false}
+              show={showDate}
+              setShow={setShowData}
+              option={{ data: oneData }}
+            />
+          )
+        }
+        {
+          // 追加ボタン押下時
+          showAddModal && (
+            <Modal
+              isAddData={true}
+              isNullData={true}
+              show={showAddModal}
+              setShow={setShowAddModal}
+              option={{ handleAddData }}
+            />
+          )
+        }
       </div>
     </div>
   );

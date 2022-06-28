@@ -45,7 +45,7 @@ export const Header = () => {
             onClick={toggleOpen}
           >
             <MenuIcon />
-            <Drawer anchor="left" open={open} onClose={toggleOpen}>
+            {/* <Drawer anchor="left" open={open} onClose={toggleOpen}>
               <div>
                 <ul>
                   <li>Dnd</li>
@@ -54,7 +54,7 @@ export const Header = () => {
                 </ul>
                 hello
               </div>
-            </Drawer>
+            </Drawer> */}
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Sample

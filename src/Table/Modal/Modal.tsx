@@ -5,6 +5,7 @@ import { DataInfo, TableAtomState } from "../../Atom/Atom";
 import PrimaryButton from "../../DefaultParts/Button/PrimaryBtn";
 
 interface ModalProp {
+  isAddData:boolean;
   isNullData?: boolean;
   show: boolean;
   setShow: (value: React.SetStateAction<boolean>) => void;
